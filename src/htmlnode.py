@@ -1,4 +1,4 @@
-from typing import Type
+from textnode import TextNode, TextType
 
 
 class HTMLNode:
@@ -15,7 +15,7 @@ class HTMLNode:
         self.props = props
 
     def __repr__(self):
-        return f"HTMLNODE({self.tag}, {self.value}, {self.children}, {self.props})"
+        return f"HTMLNode({self.tag}, {self.value}, {self.children}, {self.props})"
 
     def to_html(self):
         raise NotImplementedError
@@ -36,6 +36,9 @@ class LeafNode(HTMLNode):
         self, tag: str | None, value: str, props: dict[str, str] | None = None
     ):
         super().__init__(tag=tag, value=value, props=props)
+
+    def __repr__(self):
+        return f"LeafNode({self.tag}, {self.value}, {self.props})"
 
     def to_html(self):
         if self.value is None:
@@ -63,6 +66,9 @@ class ParentNode(HTMLNode):
     ):
         super().__init__(tag=tag, children=children, props=props)
 
+    def __repr__(self):
+        return f"ParentNode({self.tag}, {self.children}, {self.props})"
+
     def to_html(self):
         if self.tag is None:
             raise ValueError("ParentNode must have a tag")
@@ -82,3 +88,29 @@ class ParentNode(HTMLNode):
 
         html_str += close_tag
         return html_str
+
+
+def text_node_to_html_node(text_node: TextNode):
+    match text_node.text_type:
+        case TextType.text:
+            return LeafNode(tag=None, value=text_node.text)
+        case TextType.bold:
+            return LeafNode(tag="b", value=text_node.text)
+        case TextType.italic:
+            return LeafNode(tag="i", value=text_node.text)
+        case TextType.code:
+            return LeafNode(tag="code", value=text_node.text)
+        case TextType.link:
+            if text_node.url is None:
+                text_node.url = ""
+            return LeafNode(
+                tag="a", value=text_node.text, props={"href": text_node.url}
+            )
+        case TextType.image:
+            if text_node.url is None:
+                text_node.url = ""
+            return LeafNode(
+                tag="img", value="", props={"src": text_node.url, "alt": text_node.text}
+            )
+        case _:
+            raise Exception(f"Unknown TextNode type {text_node.text_type}")
