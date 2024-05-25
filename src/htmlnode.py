@@ -92,21 +92,21 @@ class ParentNode(HTMLNode):
 
 def text_node_to_html_node(text_node: TextNode):
     match text_node.text_type:
-        case TextType.text:
+        case TextType.TEXT:
             return LeafNode(tag=None, value=text_node.text)
-        case TextType.bold:
+        case TextType.BOLD:
             return LeafNode(tag="b", value=text_node.text)
-        case TextType.italic:
+        case TextType.ITALIC:
             return LeafNode(tag="i", value=text_node.text)
-        case TextType.code:
+        case TextType.CODE:
             return LeafNode(tag="code", value=text_node.text)
-        case TextType.link:
+        case TextType.LINK:
             if text_node.url is None:
                 text_node.url = ""
             return LeafNode(
                 tag="a", value=text_node.text, props={"href": text_node.url}
             )
-        case TextType.image:
+        case TextType.IMAGE:
             if text_node.url is None:
                 text_node.url = ""
             return LeafNode(
