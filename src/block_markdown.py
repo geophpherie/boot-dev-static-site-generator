@@ -1,7 +1,7 @@
 from enum import StrEnum, auto
 
 from htmlnode import HTMLNode, ParentNode, LeafNode, text_node_to_html_node
-from src.inline_markdown import text_to_textnodes
+from inline_markdown import text_to_textnodes
 
 
 class BlockType(StrEnum):
