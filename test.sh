@@ -1,1 +1,1 @@
-python3.11 -m unittest discover -s src -v
+uv run -p 3.11 python -m unittest discover -s src -v

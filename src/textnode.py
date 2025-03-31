@@ -13,7 +13,7 @@ class TextType(StrEnum):
 
 class TextNodeDelimiter(StrEnum):
     BOLD = "**"
-    ITALIC = "*"
+    ITALIC = "_"
     CODE = "`"
 
 

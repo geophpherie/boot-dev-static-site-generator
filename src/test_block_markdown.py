@@ -14,7 +14,7 @@ class TestMarkdownToBlocks(unittest.TestCase):
         markdown = """
 # This is a heading
 
-This is a paragraph of text. It has some **bold** and *italic* words inside of it.
+This is a paragraph of text. It has some **bold** and _italic_ words inside of it.
 
 * This is a list item
 * This is another list item
@@ -24,7 +24,7 @@ This is a paragraph of text. It has some **bold** and *italic* words inside of i
 
         expected_result = [
             "# This is a heading",
-            "This is a paragraph of text. It has some **bold** and *italic* words inside of it.",
+            "This is a paragraph of text. It has some **bold** and _italic_ words inside of it.",
             "* This is a list item\n* This is another list item",
         ]
 
@@ -38,7 +38,7 @@ This is a paragraph of text. It has some **bold** and *italic* words inside of i
 
 
 
-This is a paragraph of text. It has some **bold** and *italic* words inside of it.
+This is a paragraph of text. It has some **bold** and _italic_ words inside of it.
 
 
 
@@ -52,7 +52,7 @@ This is a paragraph of text. It has some **bold** and *italic* words inside of i
 
         expected_result = [
             "# This is a heading",
-            "This is a paragraph of text. It has some **bold** and *italic* words inside of it.",
+            "This is a paragraph of text. It has some **bold** and _italic_ words inside of it.",
             "* This is a list item\n* This is another list item",
         ]
 
@@ -62,7 +62,7 @@ This is a paragraph of text. It has some **bold** and *italic* words inside of i
         markdown = """
 This is **bolded** paragraph
 
-This is another paragraph with *italic* text and `code` here
+This is another paragraph with _italic_ text and `code` here
 This is the same paragraph on a new line
 
 * This is a list
@@ -73,7 +73,7 @@ This is the same paragraph on a new line
 
         expected_result = [
             "This is **bolded** paragraph",
-            "This is another paragraph with *italic* text and `code` here\nThis is the same paragraph on a new line",
+            "This is another paragraph with _italic_ text and `code` here\nThis is the same paragraph on a new line",
             "* This is a list\n* with items",
         ]
 
@@ -299,7 +299,7 @@ This is **bolded** paragraph
 text in a p
 tag here
 
-This is another paragraph with *italic* text and `code` here
+This is another paragraph with _italic_ text and `code` here
 
 """
 
@@ -311,7 +311,7 @@ This is another paragraph with *italic* text and `code` here
         markdown = """
 - This is a list
 - with items
-- and *more* items
+- and _more_ items
 
 1. This is an `ordered` list
 2. with items

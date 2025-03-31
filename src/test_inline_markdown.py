@@ -37,7 +37,7 @@ class TestNodeSplit(unittest.TestCase):
         self.assertListEqual(result, expected_result)
 
     def test_two_word_italic(self):
-        node = TextNode("This is text with a *italic block* word", TextType.TEXT)
+        node = TextNode("This is text with a _italic block_ word", TextType.TEXT)
         result = split_nodes_delimiter(
             [node], TextNodeDelimiter.ITALIC, TextType.ITALIC
         )
@@ -51,12 +51,12 @@ class TestNodeSplit(unittest.TestCase):
         self.assertListEqual(result, expected_result)
 
     def test_bold_italic_mix_error(self):
-        node = TextNode("This is text with a **italic error block* word", TextType.TEXT)
+        node = TextNode("This is text with a **italic error block_ word", TextType.TEXT)
         with self.assertRaises(Exception):
             split_nodes_delimiter([node], TextNodeDelimiter.BOLD, TextType.ITALIC)
 
     def test_italic_bold_mix_no_error(self):
-        node = TextNode("This is text with a **italic error block* word", TextType.TEXT)
+        node = TextNode("This is text with a **italic error block_ word", TextType.TEXT)
 
         with self.assertRaises(Exception):
             split_nodes_delimiter([node], TextNodeDelimiter.ITALIC, TextType.ITALIC)
@@ -481,7 +481,7 @@ class TextSplitLinks(unittest.TestCase):
 
 class TestTextToTextNode(unittest.TestCase):
     def test_all_types_once(self):
-        text = "This is **text** with an *italic* word and a `code block` and an ![image](https://storage.googleapis.com/qvault-webapp-dynamic-assets/course_assets/zjjcJKZ.png) and a [link](https://boot.dev)"
+        text = "This is **text** with an _italic_ word and a `code block` and an ![image](https://storage.googleapis.com/qvault-webapp-dynamic-assets/courseassets/zjjcJKZ.png) and a [link](https://boot.dev)"
 
         result = text_to_textnodes(text)
 
@@ -496,7 +496,7 @@ class TestTextToTextNode(unittest.TestCase):
             TextNode(
                 "image",
                 TextType.IMAGE,
-                "https://storage.googleapis.com/qvault-webapp-dynamic-assets/course_assets/zjjcJKZ.png",
+                "https://storage.googleapis.com/qvault-webapp-dynamic-assets/courseassets/zjjcJKZ.png",
             ),
             TextNode(" and a ", TextType.TEXT),
             TextNode("link", TextType.LINK, "https://boot.dev"),
@@ -505,7 +505,7 @@ class TestTextToTextNode(unittest.TestCase):
         self.assertListEqual(result, expected_result)
 
     def test_some_multiple(self):
-        text = "This is **text** with an *italic* word **words and words** and a `code block` and an ![image](https://storage.googleapis.com/qvault-webapp-dynamic-assets/course_assets/zjjcJKZ.png) and a [link](https://boot.dev) and the same link again [link](https://boot.dev) and `das code`"
+        text = "This is **text** with an _italic_ word **words and words** and a `code block` and an ![image](https://storage.googleapis.com/qvault-webapp-dynamic-assets/courseassets/zjjcJKZ.png) and a [link](https://boot.dev) and the same link again [link](https://boot.dev) and `das code`"
 
         result = text_to_textnodes(text)
 
@@ -522,7 +522,7 @@ class TestTextToTextNode(unittest.TestCase):
             TextNode(
                 "image",
                 TextType.IMAGE,
-                "https://storage.googleapis.com/qvault-webapp-dynamic-assets/course_assets/zjjcJKZ.png",
+                "https://storage.googleapis.com/qvault-webapp-dynamic-assets/courseassets/zjjcJKZ.png",
             ),
             TextNode(" and a ", TextType.TEXT),
             TextNode("link", TextType.LINK, "https://boot.dev"),

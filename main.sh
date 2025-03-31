@@ -1,2 +1,3 @@
-python3.11 src/main.py
-python3.11 server.py --dir public
+uv run -p 3.11 python src/main.py
+uv run -p 3.11 python server.py --port 8888 --dir public
+
